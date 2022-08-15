@@ -1,5 +1,9 @@
 <?php
 
-class Repositories {
+namespace Roel\WP\GitHubRepositories;
 
+class Repositories {
+	public function hooks() {
+		// ...
+	}
 }

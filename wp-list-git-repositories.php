@@ -9,4 +9,9 @@
  * Author URI:  https://roelmagdaleno.com
  */
 
+use Roel\WP\GitHubRepositories\Repositories;
+
 require 'vendor/autoload.php';
+
+$repositories = new Repositories();
+$repositories->hooks();
