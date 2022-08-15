@@ -1,0 +1,19 @@
+{
+    "name": "roelmagdaleno/wp-list-github-repositories",
+    "description": "WordPress plugin listing your GitHub public repositories.",
+    "authors": [
+        {
+            "name": "Roel Magdaleno",
+            "email": "roelmagdaleno@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Roel\\WP\\GitHubRepositories\\": "includes"
+        }
+    },
+    "require": {
+        "ext-json": "*",
+        "roelmagdaleno/wp-settings-page-fields": "^0.1.1"
+    }
+}
