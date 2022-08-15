@@ -1,6 +1,6 @@
 <?php
 
-namespace Roel\WP\GitHubRepositories\Services;
+namespace Roel\WP\GitRepos\Services;
 
 class Bitbucket {
 

@@ -9,7 +9,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Roel\\WP\\GitHubRepositories\\": "includes"
+            "Roel\\WP\\GitRepos\\": "includes"
         }
     },
     "require": {
