@@ -59,6 +59,8 @@ abstract class Git {
 	 * This function should run after the API request. Since all Git services
 	 * return different API data, we should return the same data for all services.
 	 *
+	 * Cache the data, so we only store the data we need. Do not store the entire JSON data.
+	 *
 	 * @since  0.1.0
 	 *
 	 * @param  array   $repositories   The Git repositories.
@@ -82,7 +84,7 @@ abstract class Git {
 			];
 		}
 
-		return $new_repositories;
+		return Cache::set( $this->name, $new_repositories );
 	}
 
 	/**
@@ -94,10 +96,16 @@ abstract class Git {
 	 * @return array|WP_Error       The Git repositories.
 	 */
 	public function repositories( string $username ) {
-		$this->username = $username;
+		$cached = Cache::get( $this->name );
 
-		$api          = new API();
-		$repositories = $api->request( $this->api_url(), $this->name, $this->index );
+		if ( $cached ) {
+			$this->repositories = $cached;
+			return $cached;
+		}
+
+		$this->username = $username;
+		$api            = new API();
+		$repositories   = $api->request( $this->api_url(), $this->index );
 
 		if ( is_wp_error( $repositories ) ) {
 			return $repositories;

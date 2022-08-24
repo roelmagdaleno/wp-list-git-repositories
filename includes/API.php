@@ -11,17 +11,10 @@ class API {
 	 * @since  0.1.0
 	 *
 	 * @param  string   $url     The Git service url to get the repositories.
-	 * @param  string   $name    The Git service name.
 	 * @param  string   $index   The index of the repositories.
 	 * @return array|WP_Error    The Git repositories or WP_Error if fails.
 	 */
-	public function request( string $url, string $name, string $index ) {
-		$cached = Cache::get( $name );
-
-		if ( $cached ) {
-			return $cached;
-		}
-
+	public function request( string $url, string $index ) {
 		if ( empty( $url ) ) {
 			return new WP_Error( 'empty_url', 'There is no URL to get the repositories.' );
 		}
@@ -47,7 +40,7 @@ class API {
 
 		return empty( $repositories )
 			? new WP_Error( 'empty', 'There is no response from current request.' )
-			: Cache::set( $name, $repositories );
+			: $repositories;
 	}
 
 	/**

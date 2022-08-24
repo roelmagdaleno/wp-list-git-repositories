@@ -43,6 +43,18 @@ class GitLab extends Git {
 	}
 
 	/**
+	 * Check if Git repository is from a fork.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $repository   The Git repository.
+	 * @return bool                  Whether the Git repository is from a fork.
+	 */
+	public function fork( array $repository ) : bool {
+		return isset( $repository['forked_from_project'] );
+	}
+
+	/**
 	 * The Git API url to get the repositories.
 	 *
 	 * @since  0.1.0
