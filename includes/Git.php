@@ -49,7 +49,9 @@ abstract class Git {
 	 * @param  array   $repositories   The raw Git repositories.
 	 * @return array                   The sorted Git repositories.
 	 */
-	abstract public function sort( array $repositories ) : array;
+	public function sort( array $repositories ) : array {
+		return $repositories;
+	}
 
 	/**
 	 * Prepare the repositories' data.
@@ -106,6 +108,31 @@ abstract class Git {
 		$this->repositories = $repositories;
 
 		return $repositories;
+	}
+
+	/**
+	 * Get the Git repository counters.
+	 * The counters can be the stargazers, forks, and more.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $repository   The Git repository.
+	 * @return array                 The Git repository counters.
+	 */
+	public function counters( array $repository ) : array {
+		return array();
+	}
+
+	/**
+	 * Check if Git repository is from a fork.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $repository   The Git repository.
+	 * @return bool                  Whether the Git repository is from a fork.
+	 */
+	public function fork( array $repository ) : bool {
+		return false;
 	}
 
 	/**
