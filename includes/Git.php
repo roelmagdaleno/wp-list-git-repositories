@@ -42,6 +42,16 @@ abstract class Git {
 	abstract public function api_url() : string;
 
 	/**
+	 * Sort the Git repositories by stargazers.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $repositories   The raw Git repositories.
+	 * @return array                   The sorted Git repositories.
+	 */
+	abstract public function sort( array $repositories ) : array;
+
+	/**
 	 * Prepare the repositories' data.
 	 *
 	 * This function should run after the API request. Since all Git services
