@@ -50,7 +50,15 @@ class API {
 			: Cache::set( $name, $repositories );
 	}
 
-	protected function is_404( $response ) : bool {
+	/**
+	 * Check if API response is HTTP 404.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $response   The API response.
+	 * @return bool                Whether response is HTTP 404.
+	 */
+	protected function is_404( array $response ) : bool {
 		return 404 === wp_remote_retrieve_response_code( $response );
 	}
 }
