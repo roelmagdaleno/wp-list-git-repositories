@@ -1,0 +1,35 @@
+.gitrepos-name {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.gitrepos-counters {
+    align-items: center;
+    display: flex;
+}
+
+.gitrepos-count {
+    align-items: center;
+    display: flex;
+    margin-right: 15px;
+}
+
+.gitrepos-count-value {
+    margin-right: 5px;
+}
+
+.gitrepos-count-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.gitrepos-description {
+    margin-bottom: 0;
+}
+
+.gitrepos-topic {
+    background-color: rgb(243 244 246 / 1);
+    border-radius: 9999px;
+    color: rgb(31 41 55 / 1);
+    padding: 0.125rem 0.625rem;
+}

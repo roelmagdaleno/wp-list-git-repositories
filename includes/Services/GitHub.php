@@ -5,18 +5,81 @@ namespace Roel\WP\GitRepos\Services;
 use Roel\WP\GitRepos\Git;
 
 class GitHub extends Git {
+	/**
+	 * The Git service name.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @var   string   $name   The Git service name.
+	 */
 	public string $name = 'github';
 
-	public function repositories() : array {
-		$repositories = $this->request( $this->url() );
-
-		if ( is_wp_error( $repositories ) ) {
-			return $repositories;
-		}
-
-		$this->repositories = $repositories;
+	/**
+	 * Sort the GitHub repositories by stargazers.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $repositories   The raw GitHub repositories.
+	 * @return array                   The sorted GitHub repositories.
+	 */
+	public function sort( array $repositories ) : array {
+		usort( $repositories, function ( $a, $b ) {
+			return ( $a['counters']['stargazers'] < $b['counters']['stargazers'] ) ? 1 : -1;
+		} );
 
 		return $repositories;
+	}
+
+	/**
+	 * Get the Git repository HTML URL.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $repository   The Git repository.
+	 * @return string                The Git repository HTML URL.
+	 */
+	public function html_url( array $repository ) : string {
+		return $repository['html_url'];
+	}
+
+	/**
+	 * Check if Git repository is from a fork.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $repository   The Git repository.
+	 * @return bool                  Whether the Git repository is from a fork.
+	 */
+	public function fork( array $repository ) : bool {
+		return $repository['fork'];
+	}
+
+	/**
+	 * Get the Git repository topics.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $repository   The Git repository.
+	 * @return array                 The Git repository topics.
+	 */
+	public function topics( array $repository ) : array {
+		return $repository['topics'];
+	}
+
+	/**
+	 * Get the Git repository counters.
+	 * The counters can be the stargazers, forks, and more.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $repository   The Git repository.
+	 * @return array                 The Git repository counters.
+	 */
+	public function counters( array $repository ) : array {
+		return array(
+			'stargazers' => $repository['stargazers_count'],
+			'forks'      => $repository['forks_count'],
+		);
 	}
 
 	/**
@@ -26,19 +89,7 @@ class GitHub extends Git {
 	 *
 	 * @return string   The Git service url to get the repositories.
 	 */
-	public function url() : string {
-		return 'https://api.github.com/users/' . $this->username() . '/repos';
-	}
-
-	/**
-	 * The GitHub username.
-	 * The class will retrieve the repositories from this user.
-	 *
-	 * @since  0.1.0
-	 *
-	 * @return string   The GitHub username.
-	 */
-	protected function username() : string {
-		return 'roelmagdaleno';
+	public function api_url() : string {
+		return 'https://api.github.com/users/' . $this->username . '/repos';
 	}
 }
