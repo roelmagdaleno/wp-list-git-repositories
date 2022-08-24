@@ -73,7 +73,7 @@ class Repositories {
 			'gitrepos-style',
 			plugins_url( 'public/css/gitrepos.css', __DIR__ ),
 			null,
-			'0.1.0'
+			GITREPOS_VERSION
 		);
 
 		return $service->render();
