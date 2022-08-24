@@ -136,6 +136,18 @@ abstract class Git {
 	}
 
 	/**
+	 * Get the Git repository topics.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $repository   The Git repository.
+	 * @return array                 The Git repository topics.
+	 */
+	public function topics( array $repository ) : array {
+		return $repository['topics'];
+	}
+
+	/**
 	 * Get the table's HTML.
 	 * The `$repositories` variable should be set before calling this function.
 	 *

@@ -5,7 +5,8 @@ namespace Roel\WP\GitRepos;
 use WP_Error;
 use Roel\WP\GitRepos\Services\{
 	Bitbucket,
-	GitHub
+	GitHub,
+	GitLab,
 };
 
 class Repositories {
@@ -54,6 +55,7 @@ class Repositories {
 		$services = array(
 			'bitbucket' => Bitbucket::class,
 			'github'    => GitHub::class,
+			'gitlab'    => GitLab::class,
 		);
 
 		if ( ! isset( $services[ $service ] ) ) {
