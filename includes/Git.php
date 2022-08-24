@@ -99,8 +99,8 @@ abstract class Git {
 		$cached = Cache::get( $this->name );
 
 		if ( $cached ) {
-			$this->repositories = $cached;
-			return $cached;
+			$this->repositories = $this->sort( $cached );
+			return $this->repositories;
 		}
 
 		$this->username = $username;
@@ -115,7 +115,7 @@ abstract class Git {
 		$repositories       = $this->sort( $repositories );
 		$this->repositories = $repositories;
 
-		return $repositories;
+		return $this->repositories;
 	}
 
 	/**
