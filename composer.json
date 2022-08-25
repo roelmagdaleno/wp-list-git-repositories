@@ -1,6 +1,7 @@
 {
-    "name": "roelmagdaleno/wp-list-github-repositories",
+    "name": "roelmagdaleno/wp-list-git-repositories",
     "description": "List your public Bitbucket, GitHub or Gitlab repositories.",
+    "version": "0.1.0",
     "authors": [
         {
             "name": "Roel Magdaleno",
