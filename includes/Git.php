@@ -42,18 +42,6 @@ abstract class Git {
 	abstract public function api_url() : string;
 
 	/**
-	 * Sort the Git repositories by stargazers.
-	 *
-	 * @since  0.1.0
-	 *
-	 * @param  array   $repositories   The raw Git repositories.
-	 * @return array                   The sorted Git repositories.
-	 */
-	public function sort( array $repositories ) : array {
-		return $repositories;
-	}
-
-	/**
 	 * Prepare the repositories' data.
 	 *
 	 * This function should run after the API request. Since all Git services
@@ -74,14 +62,14 @@ abstract class Git {
 		$new_repositories = array();
 
 		foreach ( $repositories as $repository ) {
-			$new_repositories[] = [
+			$new_repositories[] = array(
 				'counters'    => $this->counters( $repository ),
 				'description' => $repository['description'],
 				'fork'        => $this->fork( $repository ),
 				'name'        => $repository['name'],
 				'topics'      => $this->topics( $repository ),
 				'url'         => $this->html_url( $repository ),
-			];
+			);
 		}
 
 		return Cache::set( $this->name, $new_repositories );
@@ -99,7 +87,6 @@ abstract class Git {
 		$cached = Cache::get( $this->name );
 
 		if ( $cached ) {
-			$this->repositories = $this->sort( $cached );
 			return $this->repositories;
 		}
 
@@ -111,9 +98,7 @@ abstract class Git {
 			return $repositories;
 		}
 
-		$repositories       = $this->prepare_repositories( $repositories );
-		$repositories       = $this->sort( $repositories );
-		$this->repositories = $repositories;
+		$this->repositories = $this->prepare_repositories( $repositories );
 
 		return $this->repositories;
 	}
@@ -164,7 +149,39 @@ abstract class Git {
 	 * @return string   The table's HTML.
 	 */
 	public function render() : string {
+		// Set the `$repositories` variable, so we can pass it to HTML template.
 		$repositories = $this->repositories;
+
+		/**
+		 * Change the repositories' data before render in frontend.
+		 *
+		 * This filter hook will only change for the specific Git service,
+		 * where `$this->name` is the Git service.
+		 *
+		 * Example:
+		 * `add_filter( 'gr_github_repositories', 'filter' );`
+		 *
+		 * @since 0.1.0
+		 *
+		 * @param array   $repositories   The Git repositories.
+		 */
+		$repositories = apply_filters( 'gr_' . $this->name . '_repositories', $repositories );
+
+		/**
+		 * Change the repositories' data before render in frontend.
+		 *
+		 * This filter hook will change all Git services' data. If you want
+		 * to change data for a specific service, then use the previous filter.
+		 *
+		 * @since 0.1.0
+		 *
+		 * @param array   $repositories   The Git repositories.
+		 */
+		$repositories = apply_filters( 'git_repositories', $repositories );
+
+		if ( empty( $repositories ) ) {
+			return 'Git Repositories - Error: There is no response from current request.';
+		}
 
 		ob_start();
 		include GITREPOS_PLUGIN_PATH . '/public/views/table.php';

@@ -15,6 +15,15 @@ class GitHub extends Git {
 	public string $name = 'github';
 
 	/**
+	 * Register filter hooks to change the Git repositories' data.
+	 *
+	 * @since 0.1.0
+	 */
+	public function hooks() {
+		add_filter( 'gr_' . $this->name . '_repositories', array( $this, 'sort' ) );
+	}
+
+	/**
 	 * Sort the GitHub repositories by stargazers.
 	 *
 	 * @since  0.1.0
