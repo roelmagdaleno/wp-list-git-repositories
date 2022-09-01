@@ -13,5 +13,6 @@ use Roel\WP\GitRepos\Repositories;
 
 require 'vendor/autoload.php';
 require 'includes/constants.php';
+require 'includes/helpers.php';
 
 ( new Repositories() )->hooks();

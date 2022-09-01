@@ -33,3 +33,11 @@
     color: rgb(31 41 55 / 1);
     padding: 0.125rem 0.625rem;
 }
+
+.gitrepos-single-repo {
+    margin-bottom: 1em;
+}
+
+.gitrepos-single-repo--right {
+    display: flex;
+}

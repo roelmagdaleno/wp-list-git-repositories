@@ -46,6 +46,7 @@ class Repositories {
 			'service'  => $settings['service'] ?? 'github',
 			'username' => $settings['username'] ?? '',
 			'show'     => '-1',
+			'as'       => 'table',
 		), $atts );
 
 		if ( empty( $attributes['username'] ) ) {

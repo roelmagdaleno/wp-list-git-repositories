@@ -189,8 +189,15 @@ abstract class Git {
 			$repositories = array_slice( $repositories, 0, (int) $attributes['show'] );
 		}
 
+		$view   = $attributes['as'];
+		$layout = GITREPOS_PLUGIN_PATH . '/public/views/' . $view . '.php';
+
+		if ( ! file_exists( $layout ) ) {
+			return 'Git Repositories - Error: The render view does not exist.';
+		}
+
 		ob_start();
-		include GITREPOS_PLUGIN_PATH . '/public/views/table.php';
+		include $layout;
 		return ob_get_clean();
 	}
 }
