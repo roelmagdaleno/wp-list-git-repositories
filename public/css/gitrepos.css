@@ -32,6 +32,11 @@
     border-radius: 9999px;
     color: rgb(31 41 55 / 1);
     padding: 0.125rem 0.625rem;
+    margin-right: 5px;
+}
+
+.gitrepos-topic:last-child {
+    margin-right: 0;
 }
 
 .gitrepos-single-repo {

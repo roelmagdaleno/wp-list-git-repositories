@@ -142,6 +142,46 @@ abstract class Git {
 	}
 
 	/**
+	 * Hide the specified sections for repositories array.
+	 * You can hide the `topics`, `description`, and `counters`.
+	 *
+	 * @since  0.1.0
+	 *
+	 * @param  array   $repositories   The Git repositories.
+	 * @param  array   $attributes     The shortcode attributes.
+	 * @return array                   The Git repositories.
+	 */
+	public function hide_sections( array $repositories, array $attributes ) : array {
+		if ( empty( $repositories ) || empty( $attributes ) ) {
+			return $repositories;
+		}
+
+		if ( empty( $attributes['hide'] ) ) {
+			return $repositories;
+		}
+
+		$hide = explode( ',', $attributes['hide'] );
+
+		if ( empty( $hide ) ) {
+			return $repositories;
+		}
+
+		foreach ( $repositories as &$repository ) {
+			$sections = array_keys( $repository );
+
+			foreach ( $sections as $section ) {
+				if ( ! in_array( $section, $hide, true ) ) {
+					continue;
+				}
+
+				unset( $repository[ $section ] );
+			}
+		}
+
+		return $repositories;
+	}
+
+	/**
 	 * Get the table's HTML.
 	 * The `$repositories` variable should be set before calling this function.
 	 *
@@ -188,6 +228,8 @@ abstract class Git {
 		if ( '-1' !== $attributes['show'] ) {
 			$repositories = array_slice( $repositories, 0, (int) $attributes['show'] );
 		}
+
+		$repositories = $this->hide_sections( $repositories, $attributes );
 
 		$view   = $attributes['as'];
 		$layout = GITREPOS_PLUGIN_PATH . '/public/views/' . $view . '.php';

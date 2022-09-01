@@ -47,6 +47,7 @@ class Repositories {
 			'username' => $settings['username'] ?? '',
 			'show'     => '-1',
 			'as'       => 'table',
+			'hide'     => '',
 		), $atts );
 
 		if ( empty( $attributes['username'] ) ) {
