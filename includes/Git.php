@@ -87,6 +87,7 @@ abstract class Git {
 		$cached = Cache::get( $this->name );
 
 		if ( $cached ) {
+			$this->repositories = $cached;
 			return $this->repositories;
 		}
 
