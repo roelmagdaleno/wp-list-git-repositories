@@ -79,7 +79,7 @@ class Repositories {
 
 		wp_enqueue_style(
 			'gitrepos-style',
-			plugins_url( 'public/css/gitrepos.css', __DIR__ ),
+			plugins_url( 'public/css/gitrepos.min.css', __DIR__ ),
 			null,
 			GITREPOS_VERSION
 		);

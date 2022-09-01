@@ -31,8 +31,9 @@
     background-color: rgb(243 244 246 / 1);
     border-radius: 9999px;
     color: rgb(31 41 55 / 1);
-    padding: 0.125rem 0.625rem;
     margin-right: 5px;
+    padding: 0.125rem 0.625rem;
+    white-space: nowrap;
 }
 
 .gitrepos-topic:last-child {
@@ -45,4 +46,10 @@
 
 .gitrepos-single-repo--right {
     display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+    .gitrepos-single-repo--right {
+        display: block;
+    }
 }
