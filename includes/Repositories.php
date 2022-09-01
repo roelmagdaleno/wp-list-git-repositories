@@ -63,7 +63,12 @@ class Repositories {
 			return $this->errors( 'service' );
 		}
 
-		$service      = new $services[ $service ];
+		$service = new $services[ $service ];
+
+		if ( method_exists( $service, 'hooks' ) ) {
+			$service->hooks();
+		}
+
 		$repositories = $service->repositories( $attributes['username'] );
 
 		if ( is_wp_error( $repositories ) ) {
