@@ -45,6 +45,7 @@ class Repositories {
 		$attributes = shortcode_atts( array(
 			'service'  => $settings['service'] ?? 'github',
 			'username' => $settings['username'] ?? '',
+			'show'     => '-1',
 		), $atts );
 
 		if ( empty( $attributes['username'] ) ) {
@@ -76,7 +77,7 @@ class Repositories {
 			GITREPOS_VERSION
 		);
 
-		return $service->render();
+		return $service->render( $attributes );
 	}
 
 	/**

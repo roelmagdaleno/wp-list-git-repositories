@@ -161,10 +161,15 @@ abstract class Git {
 	 *
 	 * @since  0.1.0
 	 *
-	 * @return string   The table's HTML.
+	 * @param  array   $attributes   The shortcode attributes.
+	 * @return string                The table's HTML.
 	 */
-	public function render() : string {
+	public function render( array $attributes ) : string {
 		$repositories = $this->repositories;
+
+		if ( '-1' !== $attributes['show'] ) {
+			$repositories = array_slice( $repositories, 0, (int) $attributes['show'] );
+		}
 
 		ob_start();
 		include GITREPOS_PLUGIN_PATH . '/public/views/table.php';
